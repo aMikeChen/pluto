@@ -11,6 +11,6 @@ defmodule PlutoWeb.Schema.Wall do
   end
 
   object :wall_queries do
-    field :list_posts, list_of(:post), resolve: &Wall.posts/2
+    field :list_posts, non_null(list_of(non_null(:post))), resolve: &Wall.posts/2
   end
 end
