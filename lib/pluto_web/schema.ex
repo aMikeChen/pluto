@@ -4,6 +4,9 @@ defmodule PlutoWeb.Schema do
   use Absinthe.Schema
   use Absinthe.Relay.Schema, :modern
 
+  import_types(__MODULE__.Wall)
+  import_types(Absinthe.Type.Custom)
+
   node interface do
     resolve_type(fn
       _, _ ->
@@ -21,6 +24,12 @@ defmodule PlutoWeb.Schema do
 
     field :is_healthy, non_null(:boolean) do
       resolve(fn _, _ -> {:ok, true} end)
+    end
+
+    field :list_posts, list_of(:post) do
+      resolve(fn _, _ ->
+        {:ok, Pluto.Repo.all(Pluto.Wall.Post)}
+      end)
     end
   end
 end
