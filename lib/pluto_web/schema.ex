@@ -26,10 +26,6 @@ defmodule PlutoWeb.Schema do
       resolve(fn _, _ -> {:ok, true} end)
     end
 
-    field :list_posts, list_of(:post) do
-      resolve(fn _, _ ->
-        {:ok, Pluto.Repo.all(Pluto.Wall.Post)}
-      end)
-    end
+    import_fields(:wall_queries)
   end
 end

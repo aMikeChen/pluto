@@ -1,4 +1,4 @@
-defmodule PlutoWeb.SchemaTest do
+defmodule PlutoWeb.Schema.WallTest do
   use PlutoWeb.ConnCase
 
   import Pluto.Factory
@@ -12,6 +12,7 @@ defmodule PlutoWeb.SchemaTest do
       }
     }
     """
+
     test "returns list of post", %{conn: conn} do
       %{content: content, inserted_at: inserted_at} = insert(:post)
 
