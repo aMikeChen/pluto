@@ -8,8 +8,12 @@ interface Node {
   id: ID!
 }
 
-type Post {
+type Post implements Node {
+  "The ID of an object"
+  id: ID!
+
   content: String!
+
   insertedAt: NaiveDateTime
 }
 

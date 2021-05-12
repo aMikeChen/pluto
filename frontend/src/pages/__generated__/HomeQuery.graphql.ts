@@ -3,11 +3,10 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type HomeQueryVariables = {};
 export type HomeQueryResponse = {
-    readonly listPosts: ReadonlyArray<{
-        readonly content: string;
-    }>;
+    readonly " $fragmentRefs": FragmentRefs<"Wall_root">;
 };
 export type HomeQuery = {
     readonly response: HomeQueryResponse;
@@ -18,40 +17,31 @@ export type HomeQuery = {
 
 /*
 query HomeQuery {
+  ...Wall_root
+}
+
+fragment Wall_root on RootQueryType {
   listPosts {
+    id
     content
+    insertedAt
   }
 }
 */
 
-const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "Post",
-    "kind": "LinkedField",
-    "name": "listPosts",
-    "plural": true,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "content",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
-return {
+const node: ConcreteRequest = {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "HomeQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "Wall_root"
+      }
+    ],
     "type": "RootQueryType",
     "abstractKey": null
   },
@@ -60,17 +50,49 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "HomeQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Post",
+        "kind": "LinkedField",
+        "name": "listPosts",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "content",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "insertedAt",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "91068ccb4eb31b4947f851e195eafd0a",
+    "cacheID": "7f83d56abdfc2fdd825b14cc958e6e4e",
     "id": null,
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  listPosts {\n    content\n  }\n}\n"
+    "text": "query HomeQuery {\n  ...Wall_root\n}\n\nfragment Wall_root on RootQueryType {\n  listPosts {\n    id\n    content\n    insertedAt\n  }\n}\n"
   }
 };
-})();
-(node as any).hash = '37942628f053f5df3b58455b304e687c';
+(node as any).hash = '3a8089936d3716c0f56a048150ed00ac';
 export default node;
