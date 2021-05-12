@@ -1,5 +1,7 @@
 defmodule PlutoWeb.Resolvers.Wall do
+  alias Pluto.Wall
+
   def posts(_, _) do
-    {:ok, Pluto.Repo.all(Pluto.Wall.Post)}
+    {:ok, Wall.list_posts()}
   end
 end
