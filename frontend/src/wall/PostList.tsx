@@ -2,6 +2,11 @@ import graphql from 'babel-plugin-relay/macro'
 import { useFragment } from 'react-relay'
 import PostListItem from './PostListItem'
 import { PostList_root$key } from './__generated__/PostList_root.graphql'
+import { styled } from '@material-ui/core/styles'
+
+const Background = styled('div')({
+  marginBottom: '0.4rem',
+})
 
 const userFragment = graphql`
   fragment PostList_root on RootQueryType {
@@ -18,13 +23,12 @@ type Props = {
 
 function PostList(props: Props) {
   const root = useFragment(userFragment, props.root)
-
   return (
-    <>
+    <Background>
       {root.posts.map((post) => (
         <PostListItem key={post.id} post={post} />
       ))}
-    </>
+    </Background>
   )
 }
 
