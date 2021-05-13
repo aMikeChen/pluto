@@ -20,12 +20,21 @@ query HomeQuery {
   ...Wall_root
 }
 
-fragment Wall_root on RootQueryType {
-  listPosts {
+fragment PostListItem_post on Post {
+  id
+  content
+  insertedAt
+}
+
+fragment PostList_root on RootQueryType {
+  posts: listPosts {
     id
-    content
-    insertedAt
+    ...PostListItem_post
   }
+}
+
+fragment Wall_root on RootQueryType {
+  ...PostList_root
 }
 */
 
@@ -52,7 +61,7 @@ const node: ConcreteRequest = {
     "name": "HomeQuery",
     "selections": [
       {
-        "alias": null,
+        "alias": "posts",
         "args": null,
         "concreteType": "Post",
         "kind": "LinkedField",
@@ -86,12 +95,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "7f83d56abdfc2fdd825b14cc958e6e4e",
+    "cacheID": "8cf58ea7cfe25b0b3be0fc5180ca9689",
     "id": null,
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  ...Wall_root\n}\n\nfragment Wall_root on RootQueryType {\n  listPosts {\n    id\n    content\n    insertedAt\n  }\n}\n"
+    "text": "query HomeQuery {\n  ...Wall_root\n}\n\nfragment PostListItem_post on Post {\n  id\n  content\n  insertedAt\n}\n\nfragment PostList_root on RootQueryType {\n  posts: listPosts {\n    id\n    ...PostListItem_post\n  }\n}\n\nfragment Wall_root on RootQueryType {\n  ...PostList_root\n}\n"
   }
 };
 (node as any).hash = '3a8089936d3716c0f56a048150ed00ac';

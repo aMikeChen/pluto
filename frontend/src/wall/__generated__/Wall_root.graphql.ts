@@ -5,11 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type Wall_root = {
-    readonly listPosts: ReadonlyArray<{
-        readonly id: string;
-        readonly content: string;
-        readonly insertedAt: unknown | null;
-    }>;
+    readonly " $fragmentRefs": FragmentRefs<"PostList_root">;
     readonly " $refType": "Wall_root";
 };
 export type Wall_root$data = Wall_root;
@@ -27,40 +23,13 @@ const node: ReaderFragment = {
   "name": "Wall_root",
   "selections": [
     {
-      "alias": null,
       "args": null,
-      "concreteType": "Post",
-      "kind": "LinkedField",
-      "name": "listPosts",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "content",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "insertedAt",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "PostList_root"
     }
   ],
   "type": "RootQueryType",
   "abstractKey": null
 };
-(node as any).hash = '72897d4926967fc1ed08f7e64744d11c';
+(node as any).hash = '1d5e3c01c715843c39cbd50005b492cb';
 export default node;

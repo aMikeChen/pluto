@@ -1,14 +1,11 @@
 import graphql from 'babel-plugin-relay/macro'
 import { useFragment } from 'react-relay'
+import PostList from './PostList'
 import { Wall_root$key } from './__generated__/Wall_root.graphql'
 
-const userFragment = graphql`
+const wallFragment = graphql`
   fragment Wall_root on RootQueryType {
-    listPosts {
-      id
-      content
-      insertedAt
-    }
+    ...PostList_root
   }
 `
 
@@ -17,13 +14,11 @@ type Props = {
 }
 
 function Wall(props: Props) {
-  const data = useFragment(userFragment, props.root)
+  const root = useFragment(wallFragment, props.root)
 
   return (
     <>
-      {data.listPosts.map((post) => (
-        <div key={post.id}>{post.content}</div>
-      ))}
+      <PostList root={root} />
     </>
   )
 }
