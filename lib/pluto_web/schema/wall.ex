@@ -6,9 +6,9 @@ defmodule PlutoWeb.Schema.Wall do
 
   alias PlutoWeb.Resolvers.Wall
 
-  node object :post do
+  node object(:post) do
     field :content, non_null(:string)
-    field :inserted_at, :naive_datetime
+    field :inserted_at, non_null(:naive_datetime)
   end
 
   object :wall_queries do

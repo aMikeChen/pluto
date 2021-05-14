@@ -14,7 +14,7 @@ type Post implements Node {
 
   content: String!
 
-  insertedAt: NaiveDateTime
+  insertedAt: NaiveDateTime!
 }
 
 type RootQueryType {

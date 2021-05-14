@@ -2073,6 +2073,11 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
+"@types/javascript-time-ago@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/javascript-time-ago/-/javascript-time-ago-2.0.2.tgz#875569ced6fa170dea36e6b6efe3c9f498e3d553"
+  integrity sha512-uBUXwIG8YzPuWw5c6yV5RGvskkNOxnR+9hctOv8cptyMlB0IgfzeqFo0jkK+Ich8zGchvWghOT3Ryqr3bZmH3A==
+
 "@types/jest@*", "@types/jest@^26.0.15":
   version "26.0.23"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.23.tgz#a1b7eab3c503b80451d019efb588ec63522ee4e7"
@@ -4340,6 +4345,11 @@ data-urls@^2.0.0:
     abab "^2.0.3"
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
+
+dayjs@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
+  integrity sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
@@ -6735,6 +6745,13 @@ istanbul-reports@^3.0.2:
   dependencies:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
+
+javascript-time-ago@^2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/javascript-time-ago/-/javascript-time-ago-2.3.5.tgz#d5d3848ade117ca8daf6fddfc85597094143df47"
+  integrity sha512-e1/cNro8WnheBWc6PTN5zYqZUmtu96AmH7xjAYkBL1TN8C8lJm0PDvt4g5DlYwkMlRWyzD++xoPS3ldmV6Aj8A==
+  dependencies:
+    relative-time-format "^1.0.5"
 
 jest-changed-files@^26.6.2:
   version "26.6.2"
@@ -9988,6 +10005,11 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
+
+relative-time-format@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/relative-time-format/-/relative-time-format-1.0.5.tgz#3fb7c76ae39156afe0a3a7ff0cb7bf30aa0f0fb6"
+  integrity sha512-MAgx/YKcUQYJpIaWcfetPstElnWf26JxVis4PirdwVrrymFdbxyCSm6yENpfB1YuwFbtHSHksN3aBajVNxk10Q==
 
 relay-compiler-language-typescript@^14.0.0:
   version "14.0.0"

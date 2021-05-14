@@ -7,7 +7,7 @@ import { FragmentRefs } from "relay-runtime";
 export type PostListItem_post = {
     readonly id: string;
     readonly content: string;
-    readonly insertedAt: unknown | null;
+    readonly insertedAt: string;
     readonly " $refType": "PostListItem_post";
 };
 export type PostListItem_post$data = PostListItem_post;

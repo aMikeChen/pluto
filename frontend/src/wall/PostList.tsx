@@ -6,6 +6,7 @@ import { styled } from '@material-ui/core/styles'
 
 const Background = styled('div')({
   marginBottom: '0.4rem',
+  padding: '1rem',
 })
 
 const userFragment = graphql`

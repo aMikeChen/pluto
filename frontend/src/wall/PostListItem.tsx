@@ -4,17 +4,18 @@ import { PostListItem_post$key } from './__generated__/PostListItem_post.graphql
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
+import { getTimeAgo } from '../app/time'
 
 const useStyles = makeStyles({
   card: {
     background: '#40516E',
-    marginBottom: '0.4rem',
+    marginBottom: '0.8rem',
     height: '6rem',
     contentVisibility: 'auto',
   },
-  content: {
-    color: 'white',
-    fontSize: '2rem',
+  timestamp: {
+    color: '#AAAAAA',
   },
 })
 
@@ -36,7 +37,14 @@ function PostListItem(props: Props) {
   return (
     <div key={post.id}>
       <Card className={classes.card}>
-        <CardContent className={classes.content}>{post.content}</CardContent>
+        <CardContent>
+          <Typography variant="h4" color="primary">
+            {post.content}
+          </Typography>
+          <Typography variant="subtitle2" className={classes.timestamp}>
+            {getTimeAgo(new Date(post.insertedAt))}
+          </Typography>
+        </CardContent>
       </Card>
     </div>
   )
