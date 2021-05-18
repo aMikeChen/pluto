@@ -3,6 +3,8 @@ import { usePaginationFragment } from 'react-relay'
 import PostListItem from './PostListItem'
 import { PostList_root$key } from './__generated__/PostList_root.graphql'
 import { styled } from '@material-ui/core/styles'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useCallback } from 'react'
 
 const Background = styled('div')({
   marginBottom: '0.4rem',
@@ -32,12 +34,24 @@ type Props = {
 }
 
 function PostList(props: Props) {
-  const { data } = usePaginationFragment(userFragment, props.root)
+  const { data, loadNext, hasNext } = usePaginationFragment(userFragment, props.root)
+
+  const handleLoadNext = useCallback(() => {
+    loadNext(5)
+  }, [loadNext])
+
   return (
     <Background>
-      {data.posts?.edges?.map(
-        (edge) => edge?.node && <PostListItem key={edge.node.id} post={edge.node} />
-      )}
+      <InfiniteScroll
+        dataLength={data.posts?.edges?.length || 0}
+        next={handleLoadNext}
+        hasMore={hasNext}
+        loader={<h4>Loading...</h4>}
+      >
+        {data.posts?.edges?.map(
+          (edge) => edge?.node && <PostListItem key={edge.node.id} post={edge.node} />
+        )}
+      </InfiniteScroll>
     </Background>
   )
 }
