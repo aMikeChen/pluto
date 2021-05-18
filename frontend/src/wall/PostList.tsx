@@ -1,5 +1,5 @@
 import graphql from 'babel-plugin-relay/macro'
-import { useFragment } from 'react-relay'
+import { usePaginationFragment } from 'react-relay'
 import PostListItem from './PostListItem'
 import { PostList_root$key } from './__generated__/PostList_root.graphql'
 import { styled } from '@material-ui/core/styles'
@@ -10,10 +10,19 @@ const Background = styled('div')({
 })
 
 const userFragment = graphql`
-  fragment PostList_root on RootQueryType {
-    posts: listPosts {
-      id
-      ...PostListItem_post
+  fragment PostList_root on RootQueryType
+  @argumentDefinitions(
+    count: { type: "Int", defaultValue: 10 }
+    cursor: { type: "String", defaultValue: null }
+  )
+  @refetchable(queryName: "PostListPaginationQuery") {
+    posts: listPosts(first: $count, after: $cursor) @connection(key: "PostList_root_posts") {
+      edges {
+        node {
+          id
+          ...PostListItem_post
+        }
+      }
     }
   }
 `
@@ -23,12 +32,12 @@ type Props = {
 }
 
 function PostList(props: Props) {
-  const root = useFragment(userFragment, props.root)
+  const { data } = usePaginationFragment(userFragment, props.root)
   return (
     <Background>
-      {root.posts.map((post) => (
-        <PostListItem key={post.id} post={post} />
-      ))}
+      {data.posts?.edges?.map(
+        (edge) => edge?.node && <PostListItem key={edge.node.id} post={edge.node} />
+      )}
     </Background>
   )
 }
