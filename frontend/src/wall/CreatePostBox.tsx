@@ -2,6 +2,7 @@ import { Box, Button, TextField } from '@material-ui/core'
 import { styled } from '@material-ui/core/styles'
 
 const BoxContainer = styled(Box)({
+  backgroundColor: 'rgba(193,200,212, 0.1)',
   marginBottom: '0.4rem',
   padding: '1rem',
   height: 200,
@@ -13,15 +14,15 @@ type Props = {}
 function CreatePostBox(props: Props) {
   return (
     <BoxContainer display="flex" flexDirection="column">
-      <Box flexGrow={4} display="flex">
+      <Box flex={1} display="flex">
         <StyledTextArea
           multiline={true}
           rows={6}
-          defaultValue="Write something"
-          InputProps={{ disableUnderline: true }}
+          placeholder="Write something"
+          InputProps={{ disableUnderline: true, style: { flex: 1 } }}
         />
       </Box>
-      <Box flexGrow={1}>
+      <Box display="flex" flexDirection="row-reverse">
         <Button>Submit</Button>
       </Box>
     </BoxContainer>
