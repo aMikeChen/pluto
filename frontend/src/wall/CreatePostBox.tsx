@@ -20,6 +20,7 @@ function CreatePostBox() {
           rows={5}
           placeholder="Write something"
           InputProps={{ disableUnderline: true, style: { flex: 1, fontSize: '1.5rem' } }}
+          inputProps={{ maxLength: 500 }}
         />
       </Box>
       <Box display="flex" flexDirection="row-reverse">
