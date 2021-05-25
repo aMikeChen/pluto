@@ -42,7 +42,7 @@ defmodule PlutoWeb.Schema.WallTest do
     end
   end
 
-  describe "create post mutation" do
+  describe "createPost mutation" do
     @query """
     mutation($input: CreatePostInput!) {
       createPost(input: $input){
