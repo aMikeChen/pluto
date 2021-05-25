@@ -61,7 +61,7 @@ defmodule PlutoWeb.Schema.WallTest do
         })
 
       assert json_response(conn, 200) == %{
-               "data" => %{"createPost" => %{"content" => "hihi"}}
+               "data" => %{"createPost" => %{"content" => "write something"}}
              }
     end
   end

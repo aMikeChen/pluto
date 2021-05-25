@@ -26,4 +26,12 @@ defmodule Pluto.WallTest do
       assert Wall.posts_query(order: :newest) |> inspect() == inspect(query)
     end
   end
+
+  describe "create_post/1" do
+    test "should create a post" do
+      content = "content"
+
+      assert {:ok, %Wall.Post{content: ^content}} = Wall.create_post(%{content: content})
+    end
+  end
 end

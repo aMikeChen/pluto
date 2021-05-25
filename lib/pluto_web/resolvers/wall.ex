@@ -7,7 +7,7 @@ defmodule PlutoWeb.Resolvers.Wall do
     |> Connection.from_query(&Pluto.Repo.all/1, pagination_args)
   end
 
-  def create_post(_, _) do
-    {:ok, %{content: "hihi"}}
+  def create_post(%{input: input}, _) do
+    Wall.create_post(input)
   end
 end
