@@ -46,7 +46,9 @@ defmodule PlutoWeb.Schema.WallTest do
     @query """
     mutation($input: CreatePostInput!) {
       createPost(input: $input){
-        content
+        result {
+          content
+        }
       }
     }
     """
@@ -61,7 +63,7 @@ defmodule PlutoWeb.Schema.WallTest do
         })
 
       assert json_response(conn, 200) == %{
-               "data" => %{"createPost" => %{"content" => "write something"}}
+               "data" => %{"createPost" => %{"result" => %{"content" => "write something"}}}
              }
     end
   end
