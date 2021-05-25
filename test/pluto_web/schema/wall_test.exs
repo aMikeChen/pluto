@@ -41,4 +41,28 @@ defmodule PlutoWeb.Schema.WallTest do
              }
     end
   end
+
+  describe "create post mutation" do
+    @query """
+    mutation($input: CreatePostInput!) {
+      createPost(input: $input){
+        content
+      }
+    }
+    """
+
+    test "create post successfully", %{conn: conn} do
+      input = %{input: %{content: "write something"}}
+
+      conn =
+        post(conn, "/api", %{
+          "query" => @query,
+          "variables" => input
+        })
+
+      assert json_response(conn, 200) == %{
+               "data" => %{"createPost" => %{"content" => "hihi"}}
+             }
+    end
+  end
 end

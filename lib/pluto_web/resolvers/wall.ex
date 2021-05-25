@@ -6,4 +6,8 @@ defmodule PlutoWeb.Resolvers.Wall do
     Wall.posts_query(order: :newest)
     |> Connection.from_query(&Pluto.Repo.all/1, pagination_args)
   end
+
+  def create_post(_, _) do
+    {:ok, %{content: "hihi"}}
+  end
 end
