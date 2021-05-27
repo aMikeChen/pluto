@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import { styled } from '@material-ui/core/styles'
 import { CreatePostBoxMutation } from './__generated__/CreatePostBoxMutation.graphql'
 import { Box, Button, TextField } from '@material-ui/core'
+import { RecordSourceSelectorProxy, ConnectionHandler } from 'relay-runtime'
 
 const BoxContainer = styled(Box)({
   backgroundColor: 'rgba(193,200,212, 0.1)',
@@ -20,6 +21,7 @@ const createPostMutation = graphql`
     createPost(input: $input) {
       result {
         content
+        insertedAt
       }
     }
   }
@@ -34,6 +36,19 @@ function CreatePostBox() {
         input: {
           content,
         },
+      },
+      updater: (store: RecordSourceSelectorProxy) => {
+        const rootRecord = store.getRoot()
+        const payload = store.getRootField('createPost')
+        const connectionRecord = ConnectionHandler.getConnection(rootRecord, 'PostList_root_posts')!
+        const newPostRecord = payload?.getLinkedRecord('result')!
+        const newEdge = ConnectionHandler.createEdge(
+          store,
+          connectionRecord,
+          newPostRecord,
+          'PostEdge'
+        )
+        ConnectionHandler.insertEdgeBefore(connectionRecord, newEdge)
       },
     })
   }, [commit, content])
@@ -59,7 +74,9 @@ function CreatePostBox() {
         />
       </Box>
       <Box display="flex" flexDirection="row-reverse">
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} disabled={isProcessing}>
+          Submit
+        </Button>
       </Box>
     </BoxContainer>
   )

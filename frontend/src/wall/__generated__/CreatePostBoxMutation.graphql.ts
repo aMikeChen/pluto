@@ -13,6 +13,7 @@ export type CreatePostBoxMutationResponse = {
     readonly createPost: {
         readonly result: {
             readonly content: string;
+            readonly insertedAt: string;
         } | null;
     };
 };
@@ -30,6 +31,7 @@ mutation CreatePostBoxMutation(
   createPost(input: $input) {
     result {
       content
+      insertedAt
       id
     }
   }
@@ -57,6 +59,13 @@ v2 = {
   "kind": "ScalarField",
   "name": "content",
   "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "insertedAt",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -81,7 +90,8 @@ return {
             "name": "result",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v3/*: any*/)
             ],
             "storageKey": null
           }
@@ -115,6 +125,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -131,14 +142,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "70f9ce961d6260914a6d597aca48e23f",
+    "cacheID": "067fd27354ab06b1f5c48fbcd2668d61",
     "id": null,
     "metadata": {},
     "name": "CreatePostBoxMutation",
     "operationKind": "mutation",
-    "text": "mutation CreatePostBoxMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    result {\n      content\n      id\n    }\n  }\n}\n"
+    "text": "mutation CreatePostBoxMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    result {\n      content\n      insertedAt\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '68f05ea24d85900dbfcf3d3aaa526f64';
+(node as any).hash = '4960fa864462a7e5f8175a638711632f';
 export default node;
