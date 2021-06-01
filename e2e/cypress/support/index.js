@@ -18,3 +18,15 @@ import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+before(() => {
+  cy.checkindb()
+})
+
+beforeEach(() => {
+  cy.checkoutdb()
+})
+
+afterEach(() => {
+  cy.checkindb()
+})
