@@ -1,21 +1,16 @@
-import { Given, Then } from 'cypress-cucumber-preprocessor/steps'
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps'
 
 let post
-let postGlobalId
 
 Given('a post as below', (table) => {
   const content = table.rawTable[1][0]
   cy.insert('post', { content }).then((entry) => {
     post = entry
-
-    cy.toGlobalId('Post', post.id).then((globalId) => {
-      postGlobalId = globalId
-    })
   })
 })
 
-Given('I am on the post page', () => {
-  cy.visit(`/post/${postGlobalId}`)
+When('I choose the first post', () => {
+  cy.the('postCard').first().click()
 })
 
 Then('I see the post detail', () => {
