@@ -9,6 +9,7 @@ defmodule Pluto.Wall.Post do
 
   schema "posts" do
     field :content, :string
+    field :reply_id, :id
 
     has_one :reply_to, Post, foreign_key: :reply_id
     has_many :comments, Post, foreign_key: :reply_id
