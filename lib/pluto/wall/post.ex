@@ -5,8 +5,13 @@ defmodule Pluto.Wall.Post do
 
   import Ecto.Changeset
 
+  alias Pluto.Wall.Post
+
   schema "posts" do
     field :content, :string
+
+    has_one :reply_to, Post, foreign_key: :reply_id
+    has_many :comments, Post, foreign_key: :reply_id
 
     timestamps()
   end
