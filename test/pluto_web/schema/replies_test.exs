@@ -17,8 +17,11 @@ defmodule PlutoWeb.Schema.RepliesTest do
     """
 
     test "get all comments", %{conn: conn} do
-      %{id: id} = insert(:post)
+      comments = insert_list(3, :post)
+      %{id: id} = insert(:post, comments: comments)
       node_id = Node.to_global_id("Post", id)
+
+      expected_comments = Enum.map(comments, &%{"id" => Node.to_global_id("Post", &1.id)})
 
       conn =
         post(conn, "/api", %{
@@ -27,7 +30,7 @@ defmodule PlutoWeb.Schema.RepliesTest do
         })
 
       assert %{
-               "data" => %{"post" => %{"comments" => []}}
+               "data" => %{"post" => %{"comments" => ^expected_comments}}
              } = json_response(conn, 200)
     end
   end

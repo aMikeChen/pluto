@@ -3,9 +3,11 @@ defmodule PlutoWeb.Schema.Replies do
 
   use Absinthe.Schema.Notation
 
+  alias PlutoWeb.Resolvers.Replies
+
   object :comment_query do
     field :comments, list_of(:post) do
-      resolve(fn _, _ -> {:ok, []} end)
+      resolve(&Replies.comments/3)
     end
   end
 end
