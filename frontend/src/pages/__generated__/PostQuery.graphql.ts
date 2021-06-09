@@ -9,7 +9,7 @@ export type PostQueryVariables = {
 };
 export type PostQueryResponse = {
     readonly post: {
-        readonly " $fragmentRefs": FragmentRefs<"PostContent_post">;
+        readonly " $fragmentRefs": FragmentRefs<"PostContent_post" | "PostComments_post">;
     } | null;
 };
 export type PostQuery = {
@@ -25,6 +25,13 @@ query PostQuery(
 ) {
   post(id: $id) {
     ...PostContent_post
+    ...PostComments_post
+    id
+  }
+}
+
+fragment PostComments_post on Post {
+  comments {
     id
   }
 }
@@ -49,7 +56,14 @@ v1 = [
     "name": "id",
     "variableName": "id"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -69,6 +83,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "PostContent_post"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "PostComments_post"
           }
         ],
         "storageKey": null
@@ -108,24 +127,30 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "id",
+            "concreteType": "Post",
+            "kind": "LinkedField",
+            "name": "comments",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/)
+            ],
             "storageKey": null
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f2465465fbffed982a82eab3dc0207f3",
+    "cacheID": "ab4cf548cf8f36314d81e4531aa0d5c6",
     "id": null,
     "metadata": {},
     "name": "PostQuery",
     "operationKind": "query",
-    "text": "query PostQuery(\n  $id: ID!\n) {\n  post(id: $id) {\n    ...PostContent_post\n    id\n  }\n}\n\nfragment PostContent_post on Post {\n  content\n  insertedAt\n}\n"
+    "text": "query PostQuery(\n  $id: ID!\n) {\n  post(id: $id) {\n    ...PostContent_post\n    ...PostComments_post\n    id\n  }\n}\n\nfragment PostComments_post on Post {\n  comments {\n    id\n  }\n}\n\nfragment PostContent_post on Post {\n  content\n  insertedAt\n}\n"
   }
 };
 })();
-(node as any).hash = 'a0c5eae322fdbf5a99a322bba51058cb';
+(node as any).hash = 'c4eca9318cff66e1e74cb4b3f50285a8';
 export default node;

@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom'
 import { PostQuery as PostQueryType } from './__generated__/PostQuery.graphql'
 import PostContent from '../wall/PostContent'
 import { makeStyles, Typography } from '@material-ui/core'
+import PostComments from '../replies/PostComments'
 
 const PostQuery = graphql`
   query PostQuery($id: ID!) {
     post(id: $id) {
       ...PostContent_post
+      ...PostComments_post
     }
   }
 `
@@ -41,6 +43,7 @@ function Post() {
   return (
     <div className={classes.root}>
       <PostContent post={data.post} />
+      <PostComments post={data.post} />
     </div>
   )
 }
