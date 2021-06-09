@@ -16,13 +16,18 @@ type Props = {
 }
 
 const StyledCard = styled(Card)({
-  background: '#40516E',
+  background: '#6A7484',
   marginBottom: '0.8rem',
   contentVisibility: 'auto',
 })
 
+const Content = styled(Typography)({
+  fontSize: '1.4rem',
+})
+
 const Timestamp = styled(Typography)({
-  color: '#AAAAAA',
+  color: '#CCCCCC',
+  fontSize: '0.7rem',
 })
 
 function PostCommentContent(props: Props) {
@@ -31,9 +36,9 @@ function PostCommentContent(props: Props) {
   return (
     <StyledCard>
       <CardContent>
-        <Typography variant="body1" color="primary">
+        <Content variant="body1" color="primary">
           {content}
-        </Typography>
+        </Content>
         <Timestamp variant="subtitle2">{getTimeAgo(new Date(insertedAt))}</Timestamp>
       </CardContent>
     </StyledCard>

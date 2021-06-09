@@ -19,6 +19,10 @@ const Root = styled('div')({
   padding: '1rem',
 })
 
+const CommentsContainer = styled('div')({
+  margin: '2rem 0 0 1rem',
+})
+
 interface ParamTypes {
   id: string
 }
@@ -40,7 +44,9 @@ function Post() {
   return (
     <Root>
       <PostContent post={data.post} />
-      <PostComments post={data.post} />
+      <CommentsContainer>
+        <PostComments post={data.post} />
+      </CommentsContainer>
     </Root>
   )
 }
