@@ -1,16 +1,19 @@
 import graphql from 'babel-plugin-relay/macro'
-import { Card, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { getTimeAgo } from '../app/time'
 import { useFragment } from 'react-relay'
-import { PostContent_post$key } from './__generated__/PostContent_post.graphql'
+import { PostCommentContent_comment$key } from './__generated__/PostCommentContent_comment.graphql'
+import { Card, CardContent, makeStyles, Typography } from '@material-ui/core'
+import { getTimeAgo } from '../app/time'
 
-const query = graphql`
-  fragment PostContent_post on Post {
+const userFragment = graphql`
+  fragment PostCommentContent_comment on Post {
     content
     insertedAt
   }
 `
+
+type Props = {
+  comment: PostCommentContent_comment$key
+}
 
 const useStyles = makeStyles({
   card: {
@@ -23,16 +26,12 @@ const useStyles = makeStyles({
   },
 })
 
-type Props = {
-  post: PostContent_post$key
-}
-
-function PostContent(props: Props) {
+function PostCommentContent(props: Props) {
   const classes = useStyles()
-  const { content, insertedAt } = useFragment(query, props.post)
+  const { content, insertedAt } = useFragment(userFragment, props.comment)
 
   return (
-    <Card className={classes.card} data-testid="postContent">
+    <Card className={classes.card}>
       <CardContent>
         <Typography variant="body1" color="primary">
           {content}
@@ -44,4 +43,5 @@ function PostContent(props: Props) {
     </Card>
   )
 }
-export default PostContent
+
+export default PostCommentContent

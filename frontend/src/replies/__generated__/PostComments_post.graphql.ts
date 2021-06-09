@@ -7,7 +7,8 @@ import { FragmentRefs } from "relay-runtime";
 export type PostComments_post = {
     readonly comments: ReadonlyArray<{
         readonly id: string;
-    } | null>;
+        readonly " $fragmentRefs": FragmentRefs<"PostCommentContent_comment">;
+    }>;
     readonly " $refType": "PostComments_post";
 };
 export type PostComments_post$data = PostComments_post;
@@ -38,6 +39,11 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "id",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PostCommentContent_comment"
         }
       ],
       "storageKey": null
@@ -46,5 +52,5 @@ const node: ReaderFragment = {
   "type": "Post",
   "abstractKey": null
 };
-(node as any).hash = '187ded33859ee6ef266a97db9b078d9c';
+(node as any).hash = 'aa1b11f3a3c2a1dbd1b0803046b421d9';
 export default node;

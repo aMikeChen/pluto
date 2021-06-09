@@ -30,9 +30,15 @@ query PostQuery(
   }
 }
 
+fragment PostCommentContent_comment on Post {
+  content
+  insertedAt
+}
+
 fragment PostComments_post on Post {
   comments {
     id
+    ...PostCommentContent_comment
   }
 }
 
@@ -58,6 +64,20 @@ v1 = [
   }
 ],
 v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "insertedAt",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -110,20 +130,8 @@ return {
         "name": "post",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "insertedAt",
-            "storageKey": null
-          },
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -132,23 +140,25 @@ return {
             "name": "comments",
             "plural": true,
             "selections": [
-              (v2/*: any*/)
+              (v4/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ab4cf548cf8f36314d81e4531aa0d5c6",
+    "cacheID": "bffcf3bdbab89f6b802d7e5da97fc9f5",
     "id": null,
     "metadata": {},
     "name": "PostQuery",
     "operationKind": "query",
-    "text": "query PostQuery(\n  $id: ID!\n) {\n  post(id: $id) {\n    ...PostContent_post\n    ...PostComments_post\n    id\n  }\n}\n\nfragment PostComments_post on Post {\n  comments {\n    id\n  }\n}\n\nfragment PostContent_post on Post {\n  content\n  insertedAt\n}\n"
+    "text": "query PostQuery(\n  $id: ID!\n) {\n  post(id: $id) {\n    ...PostContent_post\n    ...PostComments_post\n    id\n  }\n}\n\nfragment PostCommentContent_comment on Post {\n  content\n  insertedAt\n}\n\nfragment PostComments_post on Post {\n  comments {\n    id\n    ...PostCommentContent_comment\n  }\n}\n\nfragment PostContent_post on Post {\n  content\n  insertedAt\n}\n"
   }
 };
 })();
