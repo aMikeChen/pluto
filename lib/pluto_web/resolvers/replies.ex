@@ -4,4 +4,8 @@ defmodule PlutoWeb.Resolvers.Replies do
   def comments(%Wall.Post{} = post, _, _) do
     {:ok, Replies.list_comments(post)}
   end
+
+  def create_comment(_, _) do
+    {:ok, nil}
+  end
 end
