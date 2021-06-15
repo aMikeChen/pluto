@@ -5,6 +5,7 @@ defmodule PlutoWeb.Schema.Replies do
 
   import AbsintheErrorPayload.Payload
 
+  alias Absinthe.Relay.Node.ParseIDs
   alias PlutoWeb.Resolvers.Replies
 
   object :comment_query do
@@ -22,6 +23,7 @@ defmodule PlutoWeb.Schema.Replies do
     field :create_comment, non_null(:post_payload) do
       arg(:input, non_null(:create_comment_input))
 
+      middleware(ParseIDs, input: [reply_id: :post])
       resolve(&Replies.create_comment/2)
       middleware(&build_payload/2)
     end

@@ -59,7 +59,7 @@ defmodule PlutoWeb.Schema.RepliesTest do
         })
 
       assert json_response(conn, 200) == %{
-               "data" => %{"createComment" => %{"result" => nil}}
+               "data" => %{"createComment" => %{"result" => %{"content" => "write something"}}}
              }
     end
   end
