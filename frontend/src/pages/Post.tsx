@@ -8,6 +8,7 @@ import { styled, Typography, Box } from '@material-ui/core'
 import PostComments from '../replies/PostComments'
 import CreateCommentBox from '../replies/CreateCommentBox'
 import useCreateCommentMutation from '../replies/hooks/useCreateCommentMutation'
+import { RecordSourceSelectorProxy } from 'relay-runtime'
 
 const PostQuery = graphql`
   query PostQuery($id: ID!) {
@@ -57,6 +58,18 @@ function Post() {
           replyId: id,
           content: comment,
         },
+      },
+      updater: (store: RecordSourceSelectorProxy) => {
+        const postRecord = store.get(id)
+        const payload = store.getRootField('createComment')
+        const newCommentRecord = payload?.getLinkedRecord('result')
+
+        if (!newCommentRecord) {
+          return
+        }
+
+        const commentRecords = postRecord?.getLinkedRecords('comments') || []
+        postRecord?.setLinkedRecords([...commentRecords, newCommentRecord], 'comments')
       },
     })
   }, [comment, commitCreateComment, id])
