@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useRef } from 'react'
 import graphql from 'babel-plugin-relay/macro'
 import { useLazyLoadQuery } from 'react-relay'
 import { useParams } from 'react-router-dom'
@@ -43,6 +43,7 @@ function Post() {
   const [commitCreateComment] = useCreateCommentMutation()
 
   const [comment, setComment] = useState<string>('')
+  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const handleCommentChange = useCallback(
     (text: string) => {
@@ -71,6 +72,9 @@ function Post() {
         const commentRecords = postRecord?.getLinkedRecords('comments') || []
         postRecord?.setLinkedRecords([...commentRecords, newCommentRecord], 'comments')
       },
+      onCompleted: () => {
+        scrollRef.current?.scrollIntoView(false)
+      },
     })
   }, [comment, commitCreateComment, id])
 
@@ -88,7 +92,7 @@ function Post() {
     <Box display="flex" flexDirection="column" className="fullscreen">
       <PostCommentsContainer flex={1}>
         <PostContent post={data.post} />
-        <CommentsContainer>
+        <CommentsContainer ref={scrollRef}>
           <PostComments post={data.post} />
         </CommentsContainer>
       </PostCommentsContainer>
