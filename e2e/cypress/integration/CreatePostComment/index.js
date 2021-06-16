@@ -1,10 +1,10 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps'
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps'
 
 let commentContent
 
 Given('I am on the post page', () => {
   cy.insert('post', {}).then((postEntry) => {
-    cy.insertList('post', 20, {reply_id: postEntry.id}).then(() => {
+    cy.insertList('post', 20, { reply_id: postEntry.id }).then(() => {
       cy.toGlobalId('Post', postEntry.id).then((globalId) => {
         cy.visit(`/post/${globalId}`)
       })
