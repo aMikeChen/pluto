@@ -1,5 +1,5 @@
 defmodule PlutoWeb.Schema.RepliesTest do
-  use PlutoWeb.ConnCase
+  use PlutoWeb.SchemaCase
 
   import Pluto.Factory
 
@@ -61,6 +61,24 @@ defmodule PlutoWeb.Schema.RepliesTest do
       assert json_response(conn, 200) == %{
                "data" => %{"createComment" => %{"result" => %{"content" => "write something"}}}
              }
+    end
+  end
+
+  describe "newComment subscription" do
+    @query """
+      subscription {
+        newComment {
+          content
+          insertedAt
+        }
+      }
+    """
+
+    test "return :ok when subscribe successfully" do
+      {:ok, socket} = Phoenix.ChannelTest.connect(PlutoWeb.UserSocket, %{})
+      {:ok, socket} = Absinthe.Phoenix.SubscriptionTest.join_absinthe(socket)
+      ref = Absinthe.Phoenix.SubscriptionTest.push_doc(socket, @query)
+      assert_reply ref, :ok
     end
   end
 end
