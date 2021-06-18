@@ -6,8 +6,10 @@ defmodule PlutoWeb.SchemaCase do
   using do
     quote do
       # Import conveniences for testing with connections
+      import Absinthe.Phoenix.SubscriptionTest
+      import Absinthe.Relay.Node, only: [to_global_id: 2]
       import Plug.Conn
-      import Phoenix.ConnTest
+      import Phoenix.ConnTest, except: [connect: 2]
       import Phoenix.ChannelTest
       import PlutoWeb.ChannelCase
       import PlutoWeb.ConnCase

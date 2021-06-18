@@ -3,9 +3,6 @@ defmodule PlutoWeb.Schema.RepliesTest do
 
   import Pluto.Factory
 
-  alias Absinthe.Phoenix.SubscriptionTest
-  alias Absinthe.Relay.Node
-
   describe "listReplies query" do
     @query """
     query($id: ID!) {
@@ -20,9 +17,9 @@ defmodule PlutoWeb.Schema.RepliesTest do
     test "get all comments", %{conn: conn} do
       comments = insert_list(3, :post)
       %{id: id} = insert(:post, comments: comments)
-      node_id = Node.to_global_id("Post", id)
+      node_id = to_global_id("Post", id)
 
-      expected_comments = Enum.map(comments, &%{"id" => Node.to_global_id("Post", &1.id)})
+      expected_comments = Enum.map(comments, &%{"id" => to_global_id("Post", &1.id)})
 
       conn =
         post(conn, "/api", %{
@@ -50,7 +47,7 @@ defmodule PlutoWeb.Schema.RepliesTest do
     test "create comment successfully", %{conn: conn} do
       %{id: id} = insert(:post)
 
-      node_id = Node.to_global_id("Post", id)
+      node_id = to_global_id("Post", id)
       input = %{input: %{content: "write something", reply_id: node_id}}
 
       conn =
@@ -87,15 +84,15 @@ defmodule PlutoWeb.Schema.RepliesTest do
     test "return :ok when subscribe successfully", %{conn: conn} do
       %{id: post_id} = insert(:post)
 
-      {:ok, connection} = Phoenix.ChannelTest.connect(PlutoWeb.UserSocket, %{})
-      {:ok, socket} = SubscriptionTest.join_absinthe(connection)
+      {:ok, connection} = connect(PlutoWeb.UserSocket, %{})
+      {:ok, socket} = join_absinthe(connection)
 
       ref =
-        SubscriptionTest.push_doc(socket, @query, %{
+        push_doc(socket, @query, %{
           variables: %{post_id: post_id}
         })
 
-      node_id = Node.to_global_id("Post", post_id)
+      node_id = to_global_id("Post", post_id)
       input = %{input: %{content: "write something", reply_id: node_id}}
 
       post(conn, "/api", %{
