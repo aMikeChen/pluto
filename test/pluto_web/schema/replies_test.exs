@@ -3,6 +3,7 @@ defmodule PlutoWeb.Schema.RepliesTest do
 
   import Pluto.Factory
 
+  alias Absinthe.Phoenix.SubscriptionTest
   alias Absinthe.Relay.Node
 
   describe "listReplies query" do
@@ -66,18 +67,42 @@ defmodule PlutoWeb.Schema.RepliesTest do
 
   describe "newComment subscription" do
     @query """
-      subscription {
-        newComment {
+      subscription($post_id: ID!) {
+        newComment(post_id: $post_id) {
           content
           insertedAt
         }
       }
     """
+    @create_comment_query """
+    mutation($input: CreateCommentInput!) {
+      createComment(input: $input){
+        result {
+          content
+        }
+      }
+    }
+    """
 
-    test "return :ok when subscribe successfully" do
-      {:ok, socket} = Phoenix.ChannelTest.connect(PlutoWeb.UserSocket, %{})
-      {:ok, socket} = Absinthe.Phoenix.SubscriptionTest.join_absinthe(socket)
-      ref = Absinthe.Phoenix.SubscriptionTest.push_doc(socket, @query)
+    test "return :ok when subscribe successfully", %{conn: conn} do
+      %{id: post_id} = insert(:post)
+
+      {:ok, connection} = Phoenix.ChannelTest.connect(PlutoWeb.UserSocket, %{})
+      {:ok, socket} = SubscriptionTest.join_absinthe(connection)
+
+      ref =
+        SubscriptionTest.push_doc(socket, @query, %{
+          variables: %{post_id: post_id}
+        })
+
+      node_id = Node.to_global_id("Post", post_id)
+      input = %{input: %{content: "write something", reply_id: node_id}}
+
+      post(conn, "/api", %{
+        "query" => @create_comment_query,
+        "variables" => input
+      })
+
       assert_reply ref, :ok
     end
   end

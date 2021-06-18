@@ -28,4 +28,25 @@ defmodule PlutoWeb.Schema.Replies do
       middleware(&build_payload/2)
     end
   end
+
+  object :replies_subscription do
+    field :new_comment, non_null(:post) do
+      arg(:post_id, non_null(:id))
+
+      # middleware(ParseIDs, input: [post_id: :post])
+      config(fn args, _ ->
+        {:ok, topic: args.post_id}
+      end)
+
+      trigger(:create_comment,
+        topic: fn new_comment ->
+          new_comment.result.reply_id
+        end
+      )
+
+      resolve(fn comment, _, _ ->
+        {:ok, comment}
+      end)
+    end
+  end
 end
