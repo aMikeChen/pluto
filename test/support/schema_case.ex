@@ -13,6 +13,7 @@ defmodule PlutoWeb.SchemaCase do
       import Phoenix.ChannelTest
       import PlutoWeb.ChannelCase
       import PlutoWeb.ConnCase
+      import PlutoWeb.SchemaCase, only: [assert_subscription: 2]
 
       alias PlutoWeb.Router.Helpers, as: Routes
 
@@ -29,5 +30,13 @@ defmodule PlutoWeb.SchemaCase do
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  defmacro assert_subscription(ref, expected_data) do
+    quote do
+      assert_reply unquote(ref), :ok
+      assert_receive %Phoenix.Socket.Message{payload: %{result: %{data: data}}}
+      assert expected_data = data
+    end
   end
 end

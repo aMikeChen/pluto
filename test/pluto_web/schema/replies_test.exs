@@ -3,6 +3,8 @@ defmodule PlutoWeb.Schema.RepliesTest do
 
   import Pluto.Factory
 
+  alias PlutoWeb.UserSocket
+
   describe "listReplies query" do
     @query """
     query($id: ID!) {
@@ -71,36 +73,45 @@ defmodule PlutoWeb.Schema.RepliesTest do
         }
       }
     """
-    @create_comment_query """
-    mutation($input: CreateCommentInput!) {
-      createComment(input: $input){
-        result {
-          content
-        }
-      }
-    }
-    """
 
-    test "return :ok when subscribe successfully", %{conn: conn} do
+    setup do
       %{id: post_id} = insert(:post)
+      post_global_id = to_global_id("Post", post_id)
 
-      {:ok, connection} = connect(PlutoWeb.UserSocket, %{})
+      {:ok, connection} = connect(UserSocket, %{})
       {:ok, socket} = join_absinthe(connection)
 
       ref =
         push_doc(socket, @query, %{
-          variables: %{post_id: post_id}
+          variables: %{post_id: post_global_id}
         })
 
-      node_id = to_global_id("Post", post_id)
-      input = %{input: %{content: "write something", reply_id: node_id}}
+      [post_global_id: post_global_id, ref: ref]
+    end
+
+    test "triggered by create comment mutation", %{
+      conn: conn,
+      ref: ref,
+      post_global_id: post_global_id
+    } do
+      query = """
+      mutation($input: CreateCommentInput!) {
+        createComment(input: $input){
+          result {
+            content
+          }
+        }
+      }
+      """
+
+      input = %{input: %{content: "write something", reply_id: post_global_id}}
 
       post(conn, "/api", %{
-        "query" => @create_comment_query,
+        "query" => query,
         "variables" => input
       })
 
-      assert_reply ref, :ok
+      assert_subscription(ref, %{"newComent" => %{"content" => "write something"}})
     end
   end
 end

@@ -4,6 +4,7 @@ defmodule PlutoWeb.Schema.Replies do
   use Absinthe.Schema.Notation
 
   import AbsintheErrorPayload.Payload
+  import Absinthe.Relay.Node, only: [to_global_id: 2]
 
   alias Absinthe.Relay.Node.ParseIDs
   alias PlutoWeb.Resolvers.Replies
@@ -33,18 +34,17 @@ defmodule PlutoWeb.Schema.Replies do
     field :new_comment, non_null(:post) do
       arg(:post_id, non_null(:id))
 
-      # middleware(ParseIDs, input: [post_id: :post])
-      config(fn args, _ ->
-        {:ok, topic: args.post_id}
+      config(fn %{post_id: post_id}, _ ->
+        {:ok, topic: post_id}
       end)
 
       trigger(:create_comment,
-        topic: fn new_comment ->
-          new_comment.result.reply_id
+        topic: fn %{result: %{reply_id: reply_id}} ->
+          to_global_id("Post", reply_id)
         end
       )
 
-      resolve(fn comment, _, _ ->
+      resolve(fn %{result: comment}, _, _ ->
         {:ok, comment}
       end)
     end
