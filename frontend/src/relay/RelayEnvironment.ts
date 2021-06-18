@@ -14,11 +14,13 @@ import { Socket as PhoenixSocket } from 'phoenix'
 import { RelayObservable } from 'relay-runtime/lib/network/RelayObservable'
 import { AbsintheSocket, Notifier, Observer } from 'absinthe__socket'
 
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL!
+
 async function fetchRelay(params: RequestParameters, variables: Variables) {
   return fetchGraphQL(params.text, variables)
 }
 
-const absintheSocket = withAbsintheSocket.create(new PhoenixSocket('ws://localhost:4000/socket'))
+const absintheSocket = withAbsintheSocket.create(new PhoenixSocket(SOCKET_URL))
 
 const unobserveOrCancelIfNeeded = (
   socket: AbsintheSocket,
