@@ -7,6 +7,11 @@ defmodule PlutoWeb.Resolvers.Wall do
     |> Connection.from_query(&Pluto.Repo.all/1, pagination_args)
   end
 
+  def reply_to(post, _, _) do
+    %{reply_to: reply_to} = Pluto.Repo.preload(post, [:reply_to])
+    {:ok, reply_to}
+  end
+
   def create_post(%{input: input}, _) do
     Wall.create_post(input)
   end
