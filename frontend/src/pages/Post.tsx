@@ -51,6 +51,8 @@ function Post() {
   const { id } = useParams<ParamTypes>()
   const data = useLazyLoadQuery<PostQueryType>(PostQuery, { id })
   const [commitCreateComment] = useCreateCommentMutation()
+  const [comment, setComment] = useState<string>('')
+  const scrollRef = useRef<HTMLDivElement | null>(null)
   const config = useMemo(
     () => ({
       variables: { postId: id },
@@ -68,9 +70,8 @@ function Post() {
     }),
     [id]
   )
+
   useSubscription<PostSubscriptionType>(config)
-  const [comment, setComment] = useState<string>('')
-  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const handleCommentChange = useCallback(
     (text: string) => {
