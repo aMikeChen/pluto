@@ -60,6 +60,7 @@ function Post() {
       updater: (store: RecordSourceSelectorProxy) => {
         const postRecord = store.get(id)
         const newCommentRecord = store.getRootField('newComment')
+
         if (!newCommentRecord) {
           return
         }
