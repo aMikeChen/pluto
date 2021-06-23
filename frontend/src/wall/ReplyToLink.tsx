@@ -1,14 +1,16 @@
 import graphql from 'babel-plugin-relay/macro'
-import { Button, styled } from '@material-ui/core'
+import { Link, styled } from '@material-ui/core'
 import ReplyIcon from '@material-ui/icons/Reply'
 import { useCallback } from 'react'
 import { useFragment } from 'react-relay'
 import { ReplyToLink_post$key } from './__generated__/ReplyToLink_post.graphql'
 import { useHistory } from 'react-router-dom'
 
-const StyledButton = styled(Button)({
+const StyledLink = styled(Link)({
   padding: '0px 16px',
   color: '#FFFFFF3A',
+  display: "flex",
+  alignItems: "center",
 })
 
 const userFragment = graphql`
@@ -38,10 +40,10 @@ function ReplyToLink(props: Props) {
   )
 
   return (
-    <StyledButton onClick={handleClick}>
+    <StyledLink onClick={handleClick}>
       <ReplyIcon />
       Reply to
-    </StyledButton>
+    </StyledLink>
   )
 }
 
