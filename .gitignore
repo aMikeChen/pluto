@@ -30,3 +30,6 @@ pluto-*.tar
 # Docker
 Analyzing
 Compiling
+
+# env
+.env.local
