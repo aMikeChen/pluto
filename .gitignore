@@ -33,3 +33,4 @@ Compiling
 
 # env
 .env.local
+.env.prod

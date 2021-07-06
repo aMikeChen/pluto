@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :pluto, PlutoWeb.Endpoint,
-  url: [host: "localhost", port: 80],
+  url: [host: "localhost", port: 4000],
   server: true
 
 # Do not print debug messages in production
