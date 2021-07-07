@@ -1,8 +1,9 @@
 FROM elixir:1.11.4-alpine as dev
+ENV HEX_HTTP_TIMEOUT=1200
 
 WORKDIR /app
 
-COPY mix.exs mix.lock /app
+COPY mix.exs mix.lock /app/
 
 RUN mix local.hex --force
 RUN mix local.rebar --force

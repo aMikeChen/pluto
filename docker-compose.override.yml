@@ -14,6 +14,8 @@ services:
     depends_on:
       - db
   frontend:
+    build:
+      target: dev
     volumes:
       - ./frontend/:/app
     entrypoint: /app/docker-entrypoint.sh

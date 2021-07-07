@@ -26,7 +26,6 @@ services:
       - deps:/app/deps
     networks:
       - pluto
-
   frontend:
     build:
       context: ./frontend/
