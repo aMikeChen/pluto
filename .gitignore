@@ -34,3 +34,7 @@ Compiling
 # env
 .env.local
 .env.prod
+
+# Trash
+.DS_Store
+.ash_history

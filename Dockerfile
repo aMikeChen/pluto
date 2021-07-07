@@ -30,6 +30,7 @@ COPY mix.exs mix.lock ./
 COPY config config
 RUN mix do deps.get, deps.compile
 
+COPY priv priv
 COPY lib lib
 RUN mix do compile, release
 
