@@ -13,7 +13,7 @@ ENV REACT_APP_SOCKET_URL=$SOCKET_URL
 
 WORKDIR /app
 COPY package.json ./
-RUN yarn install --production
+RUN yarn install
 COPY . .
 RUN yarn run build
 
