@@ -9,7 +9,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: pluto_test
-          POSTGRES_PASSWORD:
+          POSTGRES_PASSWORD: postgres
 
     working_directory: ~/app
     steps:
