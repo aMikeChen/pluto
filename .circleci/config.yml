@@ -20,11 +20,11 @@ jobs:
       - run: mix do deps.get, compile
 
       - run:
-        name: Wait for DB
-        command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run: mix credo
       - run: mix test
 
       - store_test_results:
-        path: _build/test/lib/pluto
+          path: _build/test/lib/pluto
