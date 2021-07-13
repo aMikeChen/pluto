@@ -38,10 +38,6 @@ jobs:
           key: v1-build-cache
           paths: "_build"
 
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
       - run: mix credo
       - run: mix test
 
@@ -68,6 +64,9 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: mix test
 
 workflows:
