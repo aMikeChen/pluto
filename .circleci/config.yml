@@ -59,9 +59,9 @@ jobs:
       - image: circleci/node:14.16.1
 
     working_directory: ~/app
-    build_dir: frontend
     steps:
-      - checkout
+      - checkout:
+          path: frontend
 
       - restore_cache:
           name: Restore Yarn Package Cache
