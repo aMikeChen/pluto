@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   backend:
     docker:
@@ -79,9 +79,17 @@ jobs:
 
       - run: yarn lint
 
+orb:
+  cypress: cypress-io/cypress@1.28.0
 workflows:
-  version: 2
   workflow:
     jobs:
       - backend
       - frontend
+      - cypress/run:
+          yarn: true
+          working_directory: e2e
+          requires:
+              - backend
+              - frontend
+
