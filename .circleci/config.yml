@@ -38,9 +38,6 @@ jobs:
           key: v1-build-cache
           paths: "_build"
 
-      - run: mix credo
-      - run: mix test
-
   lint:
     docker:
       - image: circleci/elixir:1.11.4
