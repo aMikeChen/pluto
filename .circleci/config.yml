@@ -75,10 +75,10 @@ workflows:
   backend:
     jobs:
       - build
-      - lint
+      - lint:
           requires:
             - build
-      - test
+      - test:
           requires:
             - build
 
