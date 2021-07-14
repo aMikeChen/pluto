@@ -4,8 +4,6 @@ networks:
 volumes:
   db_data:
   shared_data:
-  deps:
-  node_modules:
 services:
   db:
     image: postgres:13.1-alpine
@@ -22,14 +20,10 @@ services:
   backend:
     build:
       context: .
-    volumes:
-      - deps:/app/deps
     networks:
       - pluto
   frontend:
     build:
       context: ./frontend/
-    volumes:
-      - node_modules:/app/node_modules
     networks:
       - pluto

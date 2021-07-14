@@ -3,12 +3,13 @@ ENV HEX_HTTP_TIMEOUT=1200
 
 WORKDIR /app
 
-COPY mix.exs mix.lock /app/
-
 RUN mix local.hex --force
 RUN mix local.rebar --force
+
+COPY mix.exs mix.lock /app/
 RUN mix do deps.get, deps.compile
 
+EXPOSE 4000
 CMD mix phx.server
 
 FROM elixir:1.11.4-alpine as build
