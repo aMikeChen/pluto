@@ -4,6 +4,7 @@ networks:
 volumes:
   db_data:
   shared_data:
+  build:
 services:
   db:
     image: postgres:13.1-alpine

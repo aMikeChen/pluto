@@ -1,6 +1,5 @@
 version: "3"
 volumes:
-  build:
   node_modules:
   deps:
 services:
