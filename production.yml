@@ -1,6 +1,7 @@
 services:
   backend:
     build:
+      dockerfile: .circleci/images/Dockerfile.backend
       args:
         DATABASE_URL: ${DATABASE_URL}
         SECRET_KEY_BASE: ${SECRET_KEY_BASE}
@@ -10,6 +11,7 @@ services:
     command: ["bin/pluto", "start"]
   frontend:
     build:
+      dockerfile: ../.circleci/images/Dockerfile.frontend
       args:
         API_URL: ${API_URL}
         SOCKET_URL: ${SOCKET_URL}
