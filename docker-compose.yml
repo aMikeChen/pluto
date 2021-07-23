@@ -19,7 +19,7 @@ services:
     ports:
       - 5432:5432
   backend:
-    image: public.ecr.aws/r0i5o1h0/pluto_backend:latest
+    image: public.ecr.aws/r0i5o1h0/pluto_backend:${VERSION}
     entrypoint: /app/entrypoint.yml
     command: ["bin/pluto", "start"]
     env_file:
@@ -29,12 +29,12 @@ services:
     depends_on:
       - db
   frontend:
-    image: public.ecr.aws/r0i5o1h0/pluto_frontend:latest
+    image: public.ecr.aws/r0i5o1h0/pluto_frontend:${VERSION}
     command: ["nginx", "-g", "daemon off;"]
     networks:
       - pluto
   nginx:
-    image: public.ecr.aws/r0i5o1h0/pluto_nginx:latest
+    image: public.ecr.aws/r0i5o1h0/pluto_nginx:${VERSION}
     ports:
       - 80:80
     command: ["nginx", "-g", "daemon off;"]
