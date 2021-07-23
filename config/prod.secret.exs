@@ -4,16 +4,12 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
-
 config :pluto, Pluto.Repo,
   # ssl: true,
-  url: database_url,
+  username: System.get_env("DB_USER") || "postgres",
+  password: System.get_env("DB_PASS") || "postgres",
+  database: System.get_env("DB_NAME") || "pluto_prod",
+  hostname: System.get_env("DB_HOST") || "localhost",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 secret_key_base =

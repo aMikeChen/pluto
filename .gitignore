@@ -33,7 +33,7 @@ Compiling
 
 # env
 .env.local
-.env.prod
+.env
 
 # Trash
 .DS_Store

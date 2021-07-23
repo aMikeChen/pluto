@@ -5,7 +5,10 @@ services:
       context: .
       dockerfile: .circleci/images/Dockerfile.backend
       args:
-        DATABASE_URL: ${DATABASE_URL}
+        DB_USER: ${PGUSER}
+        DB_PASS: ${PGPASSWORD}
+        DB_HOST: ${PGHOST}
+        DB_NAME: ${PGDATABASE}
         SECRET_KEY_BASE: ${SECRET_KEY_BASE}
   frontend:
     build:
