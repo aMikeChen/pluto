@@ -19,29 +19,17 @@ services:
     ports:
       - 5432:5432
   backend:
-    build:
-      context: .
-      dockerfile: .circleci/images/Dockerfile.backend
-      args:
-        DATABASE_URL: ${DATABASE_URL}
-        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    image: public.ecr.aws/r0i5o1h0/pluto_backend
     command: ["bin/pluto", "start"]
     networks:
       - pluto
   frontend:
-    build:
-      context: ./frontend/
-      dockerfile: ../.circleci/images/Dockerfile.frontend
-      args:
-        API_URL: ${API_URL}
-        SOCKET_URL: ${SOCKET_URL}
+    image: public.ecr.aws/r0i5o1h0/pluto_frontend
     command: ["nginx", "-g", "daemon off;"]
     networks:
       - pluto
   nginx:
-    build:
-      context: .circleci/nginx/
-      dockerfile: ../images/Dockerfile.nginx
+    image: public.ecr.aws/r0i5o1h0/pluto_nginx
     ports:
       - 80:80
     command: ["nginx", "-g", "daemon off;"]

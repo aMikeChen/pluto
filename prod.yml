@@ -1,0 +1,20 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: .circleci/images/Dockerfile.backend
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: ../.circleci/images/Dockerfile.frontend
+      args:
+        API_URL: ${API_URL}
+        SOCKET_URL: ${SOCKET_URL}
+  nginx:
+    build:
+      context: .circleci/nginx/
+      dockerfile: ../images/Dockerfile.nginx
