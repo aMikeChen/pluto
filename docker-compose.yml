@@ -29,12 +29,12 @@ services:
     depends_on:
       - db
   frontend:
-    image: public.ecr.aws/r0i5o1h0/pluto_frontend:${VERSION}
+    image: ${REGISTRY}/pluto_frontend:${VERSION}
     command: ["nginx", "-g", "daemon off;"]
     networks:
       - pluto
   nginx:
-    image: public.ecr.aws/r0i5o1h0/pluto_nginx:${VERSION}
+    image: ${REGISTRY}/pluto_nginx:${VERSION}
     ports:
       - 80:80
     command: ["nginx", "-g", "daemon off;"]
