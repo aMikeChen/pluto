@@ -19,7 +19,7 @@ services:
     ports:
       - 5432:5432
   backend:
-    image: public.ecr.aws/r0i5o1h0/pluto_backend:${VERSION}
+    image: ${REGISTRY}/pluto_backend:${VERSION}
     entrypoint: /app/entrypoint.yml
     command: ["bin/pluto", "start"]
     env_file:
